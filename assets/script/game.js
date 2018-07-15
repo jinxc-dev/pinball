@@ -7,12 +7,10 @@ cc.Class({
             default: null,
             type: cc.Label
         },
-
         BallLabel: {
             default: null,
             type: cc.Label
         },
-
         scoreBoxs : {
             default: [],
             type: cc.Prefab,
@@ -40,6 +38,11 @@ cc.Class({
     onLoad () {
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getPhysicsManager().gravity = cc.v2 (0, -320);        
+        //. game score
+        this.score = 0;
+
+        //. ball object's array
+        this.ballObj = [];
      },
 
     start () {
@@ -74,7 +77,7 @@ cc.Class({
             comp.setInitSpeed(self.shotInfo.pos);
             comp.setRigidActive(true);
         }, 0.1); 
-        
+       
     },
 
     update (dt) {
@@ -82,11 +85,6 @@ cc.Class({
     },
 
     initGame () {
-        //. game score
-        this.score = 0;
-
-        //. ball object's array
-        this.ballObj = [];
 
         //. ball put cnt
         this.ballPut = this.ballCnt;
@@ -157,31 +155,54 @@ cc.Class({
         this.bar.node.active = status;
     },
 
+    //. box function.
     generateBox(n) {
+        var w_size = 40;
 
         for (var i = 0; i < n; i++) {
-            var w_n = Math.ceil((this.scoreBoxs.length - 1) * cc.random0To1());
-            var w_box = cc.instantiate(this.scoreBoxs[w_n]);
-            this.gameLayout.node.addChild(w_box, i);
-
-            var w_w = this.generateBoxPosX(w_box.width, i);
-           
-            w_box.setPosition(cc.v2(w_w, 0));
+            var w_n = Math.floor(this.scoreBoxs.length * cc.random0To1());
+            var w_w = this.generateBoxPosX(w_size, i);
+            var v = this.generateValue(10, i * 10);
+            this.createBox(w_n, cc.v2(w_w, w_size / 2), v);
         }
 
     },
-
     generateBoxPosX(w, n) {
         var w_width = this.gameRegion.width / 5;
         var delta = (w_width - w) / 2 * cc.random0To1();
-        return w_width * n + delete + w / 2;
+        return w_width * n + delta + w / 2;
     },
 
+    createBox(n, pos, value) {
+        var w_box = cc.instantiate(this.scoreBoxs[n]);
+        this.gameLayout.node.addChild(w_box);
+
+        w_box.getComponent('box_func').setScore(value);
+        w_box.setPosition(pos);
+    },
+
+    generateValue(start, end) {
+        var a = start;
+        var b = end;
+        if (end < start) {
+            a = end;
+            b = start;
+        } 
+        return Math.round((b - a) * cc.random0To1()) + a;
+    },
+
+    //. about ball
     createBall(pos, n) {
         var newball = cc.instantiate(this.ballPrefab);
         var comp = newball.getComponent('ball');
         this.gameLayout.node.addChild(newball);
         newball.setPosition(pos);
         return newball;        
+    },
+
+    //. increase score function
+    increaseSocre() {
+        this.score ++;
+        this.ScoreLabel.string = this.score;
     }
 });

@@ -3,8 +3,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-      value: 20,
-      type: 0,
       box: {
         default: null,
         type: cc.Node
@@ -16,23 +14,38 @@ cc.Class({
     },
 
     onLoad() {
+      this.value = 0;
+      this.scoreLabel.node.color = cc.color(0, 0, 0, 255);
+      this.scoreLabel.string = this.value;
 
     },
 
     start() {
-      this.node.on("touchend", function(){
-        this.node.dispatchEvent(new cc.Event.EventCustom("fish_catch"), true);
-        this.node.removeFromParent();
-      }, this);
+      // this.node.on("touchend", function(){
+      //   this.node.dispatchEvent(new cc.Event.EventCustom("fish_catch"), true);
+      //   this.node.removeFromParent();
+      // }, this);
 
-      this.scoreLabel.string = this.value;
+        let that = this;
+        this.node.on("box_shot", function() {
+            that.value --;
+            that.setScore(that.value);
+            that.node.parent.parent.getComponent('game').increaseSocre();
+            if (that.value === 0) {
+                that.node.removeFromParent();
+            }
+        });
+
+      
     },
 
     update(dt) {
 
-      // var fish = cc.instantiate(cc.Node);
-      // var moveby = cc.moveBy(1, x, y);
-      // var sequence = cc.sequence(moveby, cc.removeSlef(true));
-      // fish.runAction(sequence);
+    },
+    setScore(value) {
+      this.value  = value;
+      this.scoreLabel.string = value;
+      var shape = this.box.getComponent('shape');
+      shape.setValue(value);
     }
 });
