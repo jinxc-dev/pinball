@@ -12,7 +12,7 @@ cc.Class({
       this.graphics = this.node.addComponent(cc.Graphics);
       this.graphics.lineWidth = 2;
       this.R = 15;
-      this._body = this.node.getComponent(cc.RigidBody);
+      this._rigid = this.node.getComponent(cc.RigidBody);
 
     },    
     start () {
@@ -31,6 +31,9 @@ cc.Class({
     },
     setRigidActive(status) {
       // console.log("ball-status-set: " + status);
-      this._body.active = status;
+      this._rigid.active = status;
+    },
+    setInitSpeed(pos) {
+      this._rigid.linearVelocity = pos;
     }
 });
