@@ -9,7 +9,10 @@ cc.Class({
     },
 
     onBeginContact: function (contact, selfCollider, otherCollider) {
-      console.log('XC enter');
+      // console.log('XC enter');
+      if (otherCollider.body.gravityScale == 0) {
+        otherCollider.body.gravityScale = 10;
+      }
       this.node.dispatchEvent(new cc.Event.EventCustom("box_shot", true));
     },
 
@@ -49,10 +52,10 @@ cc.Class({
         this.graphics.circle(r, r, r);
       } else if (this.type === 2) {
         //. draw triangle
-        this.graphics.moveTo(30, 0);
-        this.graphics.lineTo(0, 52);
-        this.graphics.lineTo(60, 52);
-        this.graphics.lineTo(30, 0);
+        this.graphics.moveTo(30, 60);
+        this.graphics.lineTo(0, 8);
+        this.graphics.lineTo(60, 8);
+        this.graphics.lineTo(30, 60);
       }
       this.graphics.fill();
 

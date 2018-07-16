@@ -169,7 +169,7 @@
     "bullet": false
   },
   {
-    "__type__": "cc.PhysicsBoxCollider",
+    "__type__": "cc.PhysicsCircleCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -187,11 +187,7 @@
       "x": 0,
       "y": 0
     },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 60,
-      "height": 60
-    }
+    "_radius": 30
   },
   {
     "__type__": "cc.PrefabInfo",

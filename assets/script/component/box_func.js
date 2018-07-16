@@ -17,20 +17,16 @@ cc.Class({
       this.value = 0;
       this.scoreLabel.node.color = cc.color(0, 0, 0, 255);
       this.scoreLabel.string = this.value;
+      this.box.setPosition(cc.v2(0, 0));
 
     },
 
     start() {
-      // this.node.on("touchend", function(){
-      //   this.node.dispatchEvent(new cc.Event.EventCustom("fish_catch"), true);
-      //   this.node.removeFromParent();
-      // }, this);
-
         let that = this;
         this.node.on("box_shot", function() {
             that.value --;
             that.setScore(that.value);
-            that.node.parent.parent.getComponent('game').increaseSocre();
+            that.node.parent.parent.parent.getComponent('game').increaseSocre();
             if (that.value === 0) {
                 that.node.removeFromParent();
             }
@@ -38,7 +34,7 @@ cc.Class({
 
       
     },
-
+ 
     update(dt) {
 
     },
@@ -47,5 +43,13 @@ cc.Class({
       this.scoreLabel.string = value;
       var shape = this.box.getComponent('shape');
       shape.setValue(value);
+    },
+    plusPosY(value) {
+      // this.scoreLabel.node.y += value;
+      this.box.y = cc.random0To1;
+
+      console.log("YYYY:" + this.node.y);
+      console.log("BOX-SHAP:" + this.box.y);
+
     }
 });
