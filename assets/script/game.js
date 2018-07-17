@@ -85,13 +85,15 @@ cc.Class({
         this.gameLayout.node.on("add_ball", function(event){
             console.log("Add-Ball");
             var pos = event.getUserData();
-            var w_ball = self.createBall(pos);
-            self.ballObj.push(w_ball);
-            var body = w_ball.getComponent(cc.RigidBody);
+            var w_ball = self.createBall(pos);     
 
-            body.active = true;
-            body.gravityScale = 10;
-            // body.linearVelocity = cc.v2(0, 2);
+            self.scheduleOnce(function() {
+               var body = w_ball.getComponent(cc.RigidBody);
+               body.active = true;
+               body.gravityScale = 5;
+               body.linearVelocity = cc.v2(0, -500);
+            }, 0.1); 
+            self.ballObj.push(w_ball);
 
             self.ballCnt++;
             self.BallLabel.string = self.ballCnt;
@@ -134,7 +136,7 @@ cc.Class({
 
         // this.initBallPos = cc.v2(this.gameRegion.width / 2, this.gameRegion.height * 0.84);
         // this.initBoxPos = cc.rect(50, this.gameRegion.height * 0.16, this.gameRegion.width - 100, this.gameRegion.height * 0.84);
-        this.initBallPos = cc.v2(320, 960);
+        this.initBallPos = cc.v2(320, 950);
         this.initBoxPos = new cc.Rect(50, 200, 540, 935);
         this.stepY = this.initBoxPos.height / 9;
 
@@ -260,7 +262,7 @@ cc.Class({
         this.shotInfo= {
             alpha: 0,
             pos: cc.v2(0, 1),
-            d: 2000,
+            d: 1000,
             scale: 0.3
         };
         this.bar.node.setScale(this.shotInfo.scale, this.shotInfo.scale);
@@ -273,8 +275,10 @@ cc.Class({
                 boxs[i].getComponent("box_func").plusPosY(this.stepY);
             }            
         }
-        var w_bouns_cnt = Math.round(1 * cc.random0To1());
+        var w_bouns_cnt = Math.round(2 * cc.random0To1());
         var w_box_cnt = Math.ceil((this.itemCnt - w_bouns_cnt - 1) * cc.random0To1()) + 1;
+
+        // w_box_cnt = 1, w_bouns_cnt = 3;
         
 
         var objInfo = this.generateObjInfo(this.gameLevel * 3, this.gameLevel * 10, w_box_cnt, w_bouns_cnt);

@@ -5,7 +5,7 @@ cc.Class({
     },
     onBeginContact: function (contact, selfCollider, otherCollider) {
         if (otherCollider.body.gravityScale == 0) {
-            otherCollider.body.gravityScale = 10;
+            otherCollider.body.gravityScale = 5;
         }
     },
 

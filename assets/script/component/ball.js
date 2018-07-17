@@ -3,62 +3,60 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-      color: new cc.Color(255, 255, 255, 255),
-      status: 0,
-      power: 1
+        color: new cc.Color(255, 255, 255, 255),
+        status: 0,
+        power: 1
     },
 
     onLoad() {
 
-      this.graphics = this.node.addComponent(cc.Graphics);
-      this._rigid = this.node.getComponent(cc.RigidBody);
-      this.R = this.node.width / 2;
-      this.init();
-      this.power = 1;
-      let self = this;
+        this.graphics = this.node.addComponent(cc.Graphics);
+        this._rigid = this.node.getComponent(cc.RigidBody);
+        this.R = this.node.width / 2;
+        this.init();
+        this.power = 1;
+        let self = this;
 
-      this.node.on("slow_ball", function(event) {
-        self.status ++;
-        var normal = event.getUserData();
-        var p = cc.v2(-100, 300);
-        self._rigid.linearVelocity = cc.v2(p.x / normal.x, p.y * normal.y);
-      });
+        this.node.on("slow_ball", function(event) {
+            self.status ++;
+            var normal = event.getUserData();
+            var p = cc.v2(-100, 300);
+            self._rigid.linearVelocity = cc.v2(p.x / normal.x, p.y * normal.y);
+        });
 
-      this.node.on("power_ball", function(event) {
+        this.node.on("power_ball", function(event) {
         self.power ++;
-      });
-
+        });
     },
 
     init() {
-      this.status = 0;
-      this.color = cc.color(255, 255, 255, 255);
-      this._rigid.gravityScale = 0;
+        this.status = 0;
+        this._rigid.gravityScale = 0;
+        this.color = cc.color(255, 255, 255, 255);
     },
 
-    start () {
-      this.setRigidActive(true);
-
+    start () {      
+      this.setRigidActive(false);
     },
 
     update(dt) {
-      this.graphics.clear();
-      this.graphics.fillColor = this.color;
-      this.graphics.circle(this.R, this.R, this.R);
-      this.graphics.fill();
+        this.graphics.clear();
+        this.graphics.fillColor = this.color;
+        this.graphics.circle(this.R, this.R, this.R);
+        this.graphics.fill();
 
-      if (this.status > 1) {
-        this.setRigidActive(false);
-        this.node.y = 190;
-        var xx = 300;
-        this.color = cc.color(255,246, 175, 255);
+        if (this.status > 1) {
+            this.setRigidActive(false);
+            this.node.y = 190;
+            var xx = 300;
+            this.color = cc.color(255,246, 175, 255);
        
         
         if (this.node.x > 320) {
-          this.node.x = 620;
-          xx = -300;
+            this.node.x = 620;
+            xx = -300;
         } else {
-          this.node.x = 20;
+            this.node.x = 20;
         }
         this.status = -1;
 
@@ -70,23 +68,23 @@ cc.Class({
       } 
     },
     showLog() {
-      console.log("ball-value " + this.value);
+        console.log("ball-value " + this.value);
       
     },
     setRigidActive(status) {
-      this._rigid.active = status;
+        this._rigid.active = status;
     },
     setInitSpeed(pos) {
-      this._rigid.linearVelocity = pos;
+        this._rigid.linearVelocity = pos;
     },
 
     readyStatus() {
-      this.init();
-      var event = new cc.Event.EventCustom("comeback_ball", true);
-      this.node.dispatchEvent(event);
+        this.init();
+        var event = new cc.Event.EventCustom("comeback_ball", true);
+        this.node.dispatchEvent(event);
     },
     getPowerValue() {
-      return this.power;
+        return this.power;
     }
 
     

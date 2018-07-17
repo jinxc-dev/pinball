@@ -11,7 +11,7 @@ cc.Class({
     onBeginContact: function (contact, selfCollider, otherCollider) {
       // console.log('XC enter');
       if (otherCollider.body.gravityScale == 0) {
-        otherCollider.body.gravityScale = 10;
+        otherCollider.body.gravityScale = 5;
       }
       var event = new cc.Event.EventCustom("box_shot", true);
       var power = otherCollider.node.getComponent('ball').getPowerValue();
