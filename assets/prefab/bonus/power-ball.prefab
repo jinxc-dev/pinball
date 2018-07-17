@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "ball",
+    "_name": "power-ball",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -25,13 +25,10 @@
       },
       {
         "__id__": 4
-      },
-      {
-        "__id__": 5
       }
     ],
     "_prefab": {
-      "__id__": 6
+      "__id__": 5
     },
     "_id": "",
     "_opacity": 255,
@@ -50,8 +47,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 30
+      "width": 39,
+      "height": 39
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -67,10 +64,36 @@
     "_localZOrder": 0,
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
-    "groupIndex": 1
+    "groupIndex": 0
   },
   {
-    "__type__": "96ab3sQK5NCFZnsqcyQEhh6",
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_spriteFrame": {
+      "__uuid__": "8ab294d8-d6ab-4bd1-8385-1dac1186cf26"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
+  },
+  {
+    "__type__": "27a2346MgdEs4GYHHr8vE+2",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -84,52 +107,7 @@
       "b": 255,
       "a": 255
     },
-    "status": 0,
-    "power": 1
-  },
-  {
-    "__type__": "cc.RigidBody",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_type": 2,
-    "_allowSleep": true,
-    "_gravityScale": 0,
-    "_linearDamping": 0,
-    "_angularDamping": 0,
-    "_linearVelocity": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_angularVelocity": 0,
-    "_fixedRotation": true,
-    "enabledContactListener": false,
-    "bullet": false
-  },
-  {
-    "__type__": "cc.PhysicsCircleCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "tag": 0,
-    "_density": 2,
-    "_sensor": false,
-    "_friction": 0,
-    "_restitution": 1,
-    "body": null,
-    "_offset": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_radius": 15
+    "type": 1
   },
   {
     "__type__": "cc.CircleCollider",
@@ -145,7 +123,7 @@
       "x": 0,
       "y": 0
     },
-    "_radius": 15
+    "_radius": 20
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -153,9 +131,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "63fe4633-7408-47ac-af8e-7b373be1311f"
+      "__uuid__": "5b3d8294-0bef-4b5f-9e77-7baa9ff954e6"
     },
-    "fileId": "d78Xz4m/NLwbE0dYg+9/PB",
+    "fileId": "89RkwZQcBHzb24eHJxD8GR",
     "sync": false
   }
 ]

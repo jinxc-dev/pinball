@@ -13,7 +13,10 @@ cc.Class({
       if (otherCollider.body.gravityScale == 0) {
         otherCollider.body.gravityScale = 10;
       }
-      this.node.dispatchEvent(new cc.Event.EventCustom("box_shot", true));
+      var event = new cc.Event.EventCustom("box_shot", true);
+      var power = otherCollider.node.getComponent('ball').getPowerValue();
+      event.setUserData(power);
+      this.node.dispatchEvent(event);
     },
 
     onLoad() {

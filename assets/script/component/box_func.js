@@ -23,11 +23,17 @@ cc.Class({
 
     start() {
         let that = this;
-        this.node.on("box_shot", function() {
-            that.value --;
+        this.node.on("box_shot", function(event) {
+            var old_value = that.value;
+            var step = event.getUserData();
+            that.value -= step;
+
+            if (that.value < 1) {
+              step = old_value;
+            }
             that.setScore(that.value);
-            that.node.parent.parent.parent.getComponent('game').increaseSocre();
-            if (that.value === 0) {
+            that.node.parent.parent.parent.getComponent('game').increaseSocre(step);
+            if (that.value < 1) {
                 that.node.removeFromParent();
             }
         });

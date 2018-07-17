@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "label",
+    "_name": "add-ball",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -25,13 +25,10 @@
       },
       {
         "__id__": 4
-      },
-      {
-        "__id__": 5
       }
     ],
     "_prefab": {
-      "__id__": 6
+      "__id__": 5
     },
     "_id": "",
     "_opacity": 255,
@@ -50,8 +47,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1002,
-      "height": 40
+      "width": 39,
+      "height": 39
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -59,8 +56,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -22,
-      "y": -410
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -70,52 +67,50 @@
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.RigidBody",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
+    "_spriteFrame": {
+      "__uuid__": "405f5a2f-8622-4351-95f1-5807c77194f3"
     },
-    "_enabled": true,
     "_type": 0,
-    "_allowSleep": false,
-    "_gravityScale": 1,
-    "_linearDamping": 0,
-    "_angularDamping": 0,
-    "_linearVelocity": {
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
       "y": 0
     },
-    "_angularVelocity": 0,
-    "_fixedRotation": false,
-    "enabledContactListener": true,
-    "bullet": true
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
   },
   {
-    "__type__": "cc.PhysicsBoxCollider",
+    "__type__": "27a2346MgdEs4GYHHr8vE+2",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "type": 0
+  },
+  {
+    "__type__": "cc.CircleCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -123,35 +118,12 @@
     },
     "_enabled": true,
     "tag": 0,
-    "_density": 1,
-    "_sensor": false,
-    "_friction": 0.2,
-    "_restitution": 0,
-    "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
       "x": 0,
       "y": 0
     },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 1002,
-      "height": 40
-    }
-  },
-  {
-    "__type__": "d359fF7vUxDeLh3Ni29E6QT",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "impulse": {
-      "__type__": "cc.Vec2",
-      "x": -200,
-      "y": 100
-    }
+    "_radius": 20
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -159,9 +131,9 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "70be1456-0d80-4e27-9552-9428f99f2b2a"
     },
-    "fileId": "738z+1xFBOKL6nSSWN20zj",
+    "fileId": "89RkwZQcBHzb24eHJxD8GR",
     "sync": false
   }
 ]
