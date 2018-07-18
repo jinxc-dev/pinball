@@ -23,6 +23,10 @@ cc.Class({
             default:[],
             type: cc.Prefab
         },
+        delBoxAnim: {
+            default: null,
+            type:cc.Prefab
+        },  
         gameLayout: {
             default: null,
             type: cc.Layout
@@ -48,13 +52,12 @@ cc.Class({
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getPhysicsManager().gravity = cc.v2 (0, -320);
         cc.director.getCollisionManager().enabled = true;
-        // cc.director.getCollisionManager().enabledDebugDraw = true;
-        //. game score
         this.score = 0;
         this.itemCnt = 5;
 
         //. ball object's array
         this.ballObj = [];
+        this.delBoxPool = new cc.NodePool('delBox');
      },
 
     start () {
@@ -138,7 +141,7 @@ cc.Class({
         // this.initBoxPos = cc.rect(50, this.gameRegion.height * 0.16, this.gameRegion.width - 100, this.gameRegion.height * 0.84);
         this.initBallPos = cc.v2(320, 950);
         this.initBoxPos = new cc.Rect(50, 200, 540, 935);
-        this.stepY = this.initBoxPos.height / 9;
+        this.stepY = this.initBoxPos.height / 9.5;
 
         this.ScoreLabel.string = this.score;
         this.BallLabel.string = this.ballCnt;
@@ -157,10 +160,12 @@ cc.Class({
         let pos = event.getLocation();
     },
     onTouchMove(event, d, e) {
-        let pos = event.getLocation();
-        this.getShotPosInfo(pos);
-        this.bar.node.setScale(this.shotInfo.scale, this.shotInfo.scale);
-        this.bar.node.setRotation(this.shotInfo.alpha);
+        if (this.shotReadyStatus) {
+            let pos = event.getLocation();
+            this.getShotPosInfo(pos);
+            this.bar.node.setScale(this.shotInfo.scale, this.shotInfo.scale);
+            this.bar.node.setRotation(this.shotInfo.alpha);
+        }
 
     },
     //. ball shot information
@@ -246,6 +251,7 @@ cc.Class({
     increaseSocre(step) {
         this.score += step;
         this.ScoreLabel.string = this.score;
+        // this.gainScore(cc.v2(100, 100));
     },
 
     //. shot ready function
@@ -267,23 +273,36 @@ cc.Class({
         };
         this.bar.node.setScale(this.shotInfo.scale, this.shotInfo.scale);
         this.bar.node.setRotation(this.shotInfo.alpha);
+        this.updateBoxPosY();
 
-        var boxs = this.boxsNode.children;        
-        for (var i = 0; i < boxs.length; i++) {            
-            boxs[i].y += this.stepY;
-            if (boxs[i].name == 'box') {
-                boxs[i].getComponent("box_func").plusPosY(this.stepY);
-            }            
-        }
         var w_bouns_cnt = Math.round(2 * cc.random0To1());
         var w_box_cnt = Math.ceil((this.itemCnt - w_bouns_cnt - 1) * cc.random0To1()) + 1;
 
-        // w_box_cnt = 1, w_bouns_cnt = 3;
-        
-
         var objInfo = this.generateObjInfo(this.gameLevel * 3, this.gameLevel * 10, w_box_cnt, w_bouns_cnt);
         this.generateItems(objInfo, true);
+    },
 
+    updateBoxPosY() {
+        var boxs = this.boxsNode.children;
+        var limit_h = this.stepY * 7 + this.initBoxPos.y;
+        var w_h = this.stepY * 6 + this.initBallPos.y;
+        for (var i = 0; i < boxs.length; i++) {
+            boxs[i].y += this.stepY;
+            if (boxs[i].name == 'box') {
+                boxs[i].getComponent("box_func").plusPosY(this.stepY);
+            }
+            if (boxs[i].y > limit_h) {
+                console.log('Game Over');
+            }
+            if (boxs[i].y > w_h) {
+                console.log('xxxxxx');
+                if (boxs[i].name == 'box') {
+                    boxs[i].getComponent("box_func").setUponStatus(1);
+                } else {
+                    boxs[i].getComponent("bonus").setUponStatus(1);
+                }
+            } 
+        }
     },
 
     generateItems(info, b_rand) {
@@ -310,7 +329,7 @@ cc.Class({
         var w_value = Math.ceil((e_value - s_value) * cc.random0To1()) + s_value;
         var n_empty = w_maxCnt - n_box - n_bonus;
 
-        console.log("VVV:" + s_value + "::::" + e_value);
+        // console.log("VVV:" + s_value + "::::" + e_value);
 
         //. 0: empty, 1: bouns, 2: boxs, 3: gold
         var w_obj_values = [];
@@ -348,6 +367,30 @@ cc.Class({
             idx: w_obj,
             value: w_obj_values
         }
+    },
+
+    removeBox: function (pos) {
+
+        var anim = this.spawnDelBox();
+        this.boxsNode.addChild(anim.node);
+        anim.node.setPosition(pos);
+        anim.play();
+    },
+
+    spawnDelBox: function () {
+        var fx;
+        if (this.delBoxPool.size() > 0) {
+            fx = this.delBoxPool.get();
+            return fx.getComponent('delFX');
+        } else {
+            fx = cc.instantiate(this.delBoxAnim).getComponent('delFX');
+            fx.init(this);
+            return fx;
+        }
+    },
+
+    despawnDelBox (anim) {
+        this.delBoxPool.put(anim);
     },
 
 });

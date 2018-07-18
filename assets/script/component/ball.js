@@ -49,26 +49,24 @@ cc.Class({
             this.setRigidActive(false);
             this.node.y = 190;
             var xx = 300;
-            this.color = cc.color(255,246, 175, 255);
-       
+            this.color = cc.color(255,246, 175, 255);       
         
-        if (this.node.x > 320) {
-            this.node.x = 620;
-            xx = -300;
-        } else {
-            this.node.x = 20;
-        }
-        this.status = -1;
+            if (this.node.x > 320) {
+                this.node.x = 620;
+                xx = -300;
+            } else {
+                this.node.x = 20;
+            }
+            this.status = -1;
 
-        var m_step1 = cc.moveBy(.5, 0, 920).easing(cc.easeCubicActionOut());
-        var m_step2 = cc.moveBy(.5, xx, -130).easing(cc.easeCubicActionOut());
-        var callback = cc.callFunc(this.readyStatus, this);
-        var se = cc.sequence(m_step1, m_step2, callback);
-        this.node.runAction(se);
-      } 
+            var m_step1 = cc.moveBy(.5, 0, 920).easing(cc.easeCubicActionOut());
+            var m_step2 = cc.moveBy(.5, xx, -130).easing(cc.easeCubicActionOut());
+            var callback = cc.callFunc(this.readyStatus, this);
+            var se = cc.sequence(m_step1, m_step2, callback);
+            this.node.runAction(se);
+        } 
     },
     showLog() {
-        console.log("ball-value " + this.value);
       
     },
     setRigidActive(status) {
