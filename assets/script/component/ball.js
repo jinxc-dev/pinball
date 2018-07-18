@@ -23,9 +23,8 @@ cc.Class({
             var p = cc.v2(-100, 300);
             self._rigid.linearVelocity = cc.v2(p.x / normal.x, p.y * normal.y);
         });
-
         this.node.on("power_ball", function(event) {
-        self.power ++;
+            self.power ++;
         });
     },
 

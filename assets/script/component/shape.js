@@ -31,20 +31,22 @@ cc.Class({
         this.color = this.colorList[0];
         let body = this.node.getComponent(cc.RigidBody);
         body.enabledContactListener = true;
+        this.graphics = this.node.addComponent(cc.Graphics);
     },
 
     start() {
-      this.graphics = this.node.addComponent(cc.Graphics);
+      
       // this.graphics.anchor
       this.node.setRotation(Math.ceil(cc.random0To1() * 180));
       this.node.x = 0;
       this.node.y = 0;
+      this.status = 0;
 
       console.log("type:" + this.type);
     },
 
     update(dt) {
-        this.graphics.clear();
+        // this.graphics.clear();
         this.graphics.fillColor = this.color;
         var r = this.node.width / 2;
         if (this.type === 0) {

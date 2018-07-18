@@ -20,9 +20,11 @@ cc.Class({
     },
 
     vibrateShape() {
-        var m_stepX1 = cc.scaleTo(this.duration, 0.9).easing(cc.easeCubicActionOut());
+        var m_stepX1 = cc.scaleTo(this.duration, 0.8, 0.8).easing(cc.easeCubicActionOut());
         var m_stepX2 = cc.scaleTo(this.duration, 1).easing(cc.easeCubicActionOut());
         var se = cc.sequence(m_stepX1, m_stepX2);
-        this.node.runAction(se).repeat(-1);
+        
+        var re = cc.repeatForever(se);
+        this.node.runAction(re);
     },
 });

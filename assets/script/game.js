@@ -43,6 +43,14 @@ cc.Class({
             default: null,
             type: cc.Sprite
         },
+        resumeBtn: {
+            default: null,
+            type: cc.Node
+        },
+        resumeLayout:  {
+            default: null,
+            type: cc.Layout
+        },
 
     },
 
@@ -73,6 +81,17 @@ cc.Class({
                 self.shotInfo.pos = self.calcSpeedOfBall(self.shotInfo.pos, self.shotInfo.d);
                 self.showBar(false);
             }
+        });
+
+        this.resumeBtn.on("touchend", function(){
+            self.resumeLayout.node.active = true;
+            self.gameLayout.node.pauseSystemEvents(true);
+            self.resumeLayout.node.getComponent('resumeGame').init(self);
+            // self.gameLayout.node.stopAllActions();
+            // for (var i = 0; i < self.ballObj.length; i++) {
+            //     console.log('stop ball');
+            //     self.ballObj[i].stopAllActions();//getComponent('ball').setRigidActive(false);
+            // }
         });
 
         this.gameLayout.node.on("comeback_ball", function(){
@@ -285,14 +304,16 @@ cc.Class({
     updateBoxPosY() {
         var boxs = this.boxsNode.children;
         var limit_h = this.stepY * 7 + this.initBoxPos.y;
-        var w_h = this.stepY * 6 + this.initBallPos.y;
+        var w_h = this.stepY * 6 + this.initBoxPos.y;
         for (var i = 0; i < boxs.length; i++) {
             boxs[i].y += this.stepY;
             if (boxs[i].name == 'box') {
                 boxs[i].getComponent("box_func").plusPosY(this.stepY);
             }
             if (boxs[i].y > limit_h) {
-                console.log('Game Over');
+                // this.gameOverLayout.node.active = true;
+                this.gameLayout.node.stopAllActions();
+                // this.gameLayout.node.removeAllChildren();
             }
             if (boxs[i].y > w_h) {
                 console.log('xxxxxx');
