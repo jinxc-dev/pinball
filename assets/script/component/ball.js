@@ -9,8 +9,6 @@ cc.Class({
     },
 
     onLoad() {
-
-        this.graphics = this.node.addComponent(cc.Graphics);
         this._rigid = this.node.getComponent(cc.RigidBody);
         this.R = this.node.width / 2;
         this.init();
@@ -39,11 +37,6 @@ cc.Class({
     },
 
     update(dt) {
-        this.graphics.clear();
-        this.graphics.fillColor = this.color;
-        this.graphics.circle(this.R, this.R, this.R);
-        this.graphics.fill();
-
         if (this.status > 1) {
             this.setRigidActive(false);
             this.node.y = 190;

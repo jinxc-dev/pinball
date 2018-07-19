@@ -11,16 +11,12 @@ cc.Class({
         default: null,
         type: cc.Label
       },
-      status: 1
     },
 
     onLoad() {
         this.value = 0;
-        this.status = 1;
         this.scoreLabel.node.color = cc.color(0, 0, 0, 255);
         this.scoreLabel.string = this.value;
-        this.box.setPosition(cc.v2(0, 0));
-
     },
 
     start() {
@@ -55,11 +51,9 @@ cc.Class({
         var shape = this.box.getComponent('shape');
         shape.setValue(value);
     },
+
     plusPosY(value) {
-      // this.scoreLabel.node.y += value;
-        // this.box.setPositionY(cc.random0To1());
         this.box.setPositionY(0.1);
-        // this.box.positionY = cc.random0To1();
     },
 
     setUponStatus(status) {

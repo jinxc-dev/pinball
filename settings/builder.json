@@ -2,9 +2,7 @@
   "appKey": "",
   "appSecret": "",
   "encryptJs": true,
-  "excludeScenes": [
-    "1486e5fd-e1c3-4fa1-bcdf-6b8e45a98ad5"
-  ],
+  "excludeScenes": [],
   "fb-instant-games": {},
   "includeAnySDK": false,
   "includeSDKBox": false,
@@ -28,7 +26,7 @@
     "orientation": "portrait"
   },
   "renderMode": "0",
-  "startScene": "f450e9e3-a85e-4aa1-a2ff-ee84b2888f2e",
+  "startScene": "1486e5fd-e1c3-4fa1-bcdf-6b8e45a98ad5",
   "title": "pinpall",
   "webOrientation": "auto",
   "wechatgame": {

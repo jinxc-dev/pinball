@@ -3,7 +3,7 @@
   "_name": "del_box",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.35,
+  "_duration": 0.2,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -14,50 +14,40 @@
           "cc.Sprite": {
             "spriteFrame": [
               {
-                "frame": 0.016666666666666666,
+                "frame": 0,
                 "value": {
-                  "__uuid__": "1b62f2b2-1acc-4365-b599-4e58bddfdb9b"
-                }
-              },
-              {
-                "frame": 0.06666666666666667,
-                "value": {
-                  "__uuid__": "ac24b5df-0b90-45f4-bdb6-8ffbf4310bd0"
-                }
-              },
-              {
-                "frame": 0.13333333333333333,
-                "value": {
-                  "__uuid__": "15a249f1-1ca9-4efe-90da-462754640110"
-                }
-              },
-              {
-                "frame": 0.2,
-                "value": {
-                  "__uuid__": "f1854a64-eb4a-41e7-ac46-c9dc631c842c"
-                }
-              },
-              {
-                "frame": 0.26666666666666666,
-                "value": {
-                  "__uuid__": "5fe7048d-aa68-43fb-9ce6-c344302ab9b5"
-                }
-              },
-              {
-                "frame": 0.3333333333333333,
-                "value": {
-                  "__uuid__": "0c3e48f6-a605-45c8-95fa-a28419f545f8"
+                  "__uuid__": "9e33ef39-7791-4846-b2f7-a3df34f7ec6e"
                 }
               }
             ]
           }
+        },
+        "props": {
+          "scale": [
+            {
+              "frame": 0,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.3,
+                "y": 0.3
+              }
+            },
+            {
+              "frame": 0.2,
+              "value": {
+                "__type__": "cc.Vec2",
+                "x": 0.8,
+                "y": 0.8
+              }
+            }
+          ]
         }
       }
     }
   },
   "events": [
     {
-      "frame": 0.3333333333333333,
+      "frame": 0.2,
       "func": "hideFX",
       "params": []
     }

@@ -127,6 +127,7 @@ cc.Class({
                 return;
             
             self.ballPut--;
+            console.log('ball cnt:' + self.ballPut);
 
             let comp = self.ballObj[self.ballPut].getComponent('ball');
 
