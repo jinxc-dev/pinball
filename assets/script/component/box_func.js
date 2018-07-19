@@ -57,7 +57,9 @@ cc.Class({
     },
     plusPosY(value) {
       // this.scoreLabel.node.y += value;
-        this.box.setPositionY(cc.random0To1);
+        // this.box.setPositionY(cc.random0To1());
+        this.box.setPositionY(0.1);
+        // this.box.positionY = cc.random0To1();
     },
 
     setUponStatus(status) {

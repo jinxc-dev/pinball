@@ -24,7 +24,7 @@ cc.Class({
         this.closeBtn.on('touchend', function(){
             console.log('closeBtn');
             self.node.active = false;
-            self.game.gameLayout.node.resumeSystemEvents(true);
+            self.game.resumeGameStatus();
         });
 
     },

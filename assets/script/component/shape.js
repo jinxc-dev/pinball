@@ -31,12 +31,13 @@ cc.Class({
         this.color = this.colorList[0];
         let body = this.node.getComponent(cc.RigidBody);
         body.enabledContactListener = true;
-        this.graphics = this.node.addComponent(cc.Graphics);
+        
     },
 
     start() {
       
       // this.graphics.anchor
+      this.graphics = this.node.addComponent(cc.Graphics);
       this.node.setRotation(Math.ceil(cc.random0To1() * 180));
       this.node.x = 0;
       this.node.y = 0;
@@ -63,9 +64,7 @@ cc.Class({
             this.graphics.lineTo(30, 60);
         }
         this.graphics.fill();
-        this.vibrateShape();
-
-
+        // this.vibrateShape();
     },
     setValue(v) {
         this.value = v;

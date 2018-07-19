@@ -85,13 +85,8 @@ cc.Class({
 
         this.resumeBtn.on("touchend", function(){
             self.resumeLayout.node.active = true;
-            self.gameLayout.node.pauseSystemEvents(true);
             self.resumeLayout.node.getComponent('resumeGame').init(self);
-            // self.gameLayout.node.stopAllActions();
-            // for (var i = 0; i < self.ballObj.length; i++) {
-            //     console.log('stop ball');
-            //     self.ballObj[i].stopAllActions();//getComponent('ball').setRigidActive(false);
-            // }
+            self.pauseGameStatus();
         });
 
         this.gameLayout.node.on("comeback_ball", function(){
@@ -413,5 +408,25 @@ cc.Class({
     despawnDelBox (anim) {
         this.delBoxPool.put(anim);
     },
+
+    //. pause game
+    pauseGameStatus() {
+        this.gameLayout.node.pauseSystemEvents(true);
+        this.gameLayout.node.pauseAllActions();
+        cc.director.getPhysicsManager().enabled = false;
+        for (var i = 0; i < this.ballObj.length; i++) {
+            this.ballObj[i].pauseAllActions();
+        }
+    },
+    //. resume game
+    resumeGameStatus() {
+        cc.director.getPhysicsManager().enabled = true;
+        this.gameLayout.node.resumeSystemEvents(true);
+        this.gameLayout.node.resumeAllActions();
+        for (var i = 0; i < this.ballObj.length; i++) {
+            this.ballObj[i].resumeAllActions();        
+        }
+    }
+
 
 });
