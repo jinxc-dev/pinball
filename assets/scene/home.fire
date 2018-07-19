@@ -317,7 +317,7 @@
     "_N$string": "关卡\n选择\n▼",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "SimHei",
     "_N$overflow": 0
   },
   {
@@ -557,7 +557,7 @@
     "_N$string": "开始犮球",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "SimHei",
     "_N$overflow": 0
   },
   {
@@ -687,7 +687,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 157,
+      "width": 165,
       "height": 30
     },
     "_rotationX": 0,
@@ -725,7 +725,7 @@
     "_N$string": "桃战关卡(0)",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
+    "_N$fontFamily": "SimHei",
     "_N$overflow": 0
   },
   {

@@ -41,7 +41,7 @@ cc.Class({
             this.setRigidActive(false);
             this.node.y = 190;
             var xx = 300;
-            this.color = cc.color(255,246, 175, 255);       
+            this.node.color = cc.color(255,246, 175, 255);       
         
             if (this.node.x > 320) {
                 this.node.x = 620;
@@ -72,6 +72,7 @@ cc.Class({
         this.init();
         var event = new cc.Event.EventCustom("comeback_ball", true);
         this.node.dispatchEvent(event);
+        this.node.color = cc.color(255,255,255, 255);
     },
     getPowerValue() {
         return this.power;

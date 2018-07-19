@@ -51,6 +51,10 @@ cc.Class({
             default: null,
             type: cc.Layout
         },
+        gameoverLayout: {
+            default:null,
+            type: cc.Layout
+        }
 
     },
 
@@ -71,6 +75,9 @@ cc.Class({
     start () {
         this.initGame();
         this.shotReadyFunc();
+        this.shotReadyFunc();
+        this.shotReadyFunc();
+        
 
         var self = this;
 
@@ -307,9 +314,7 @@ cc.Class({
                 boxs[i].getComponent("box_func").plusPosY(this.stepY);
             }
             if (boxs[i].y > limit_h) {
-                // this.gameOverLayout.node.active = true;
-                this.gameLayout.node.stopAllActions();
-                // this.gameLayout.node.removeAllChildren();
+                this.gameOver();
             }
             if (boxs[i].y > w_h) {
                 console.log('xxxxxx');
@@ -427,6 +432,12 @@ cc.Class({
         for (var i = 0; i < this.ballObj.length; i++) {
             this.ballObj[i].resumeAllActions();        
         }
+    },
+
+    gameOver() {
+        this.gameoverLayout.node.active = true;
+        this.gameoverLayout.node.getComponent('gameOver').setScore(this.score);
+        this.pauseGameStatus();
     }
 
 

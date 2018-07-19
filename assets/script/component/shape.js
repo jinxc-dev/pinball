@@ -6,6 +6,8 @@ cc.Class({
       color: new cc.Color(255, 255, 255, 255),
       value: 0,
       status: 0,
+      rotate: 1,
+      type: 0
     },
 
     onBeginContact: function (contact, selfCollider, otherCollider) {
@@ -33,10 +35,12 @@ cc.Class({
     },
 
     start() {
-      this.node.setRotation(Math.ceil(cc.random0To1() * 180));
-      this.node.x = 0;
-      this.node.y = 0;
-      this.status = 0;
+        if (this.rotate == 1) {        
+            this.node.setRotation(Math.ceil(cc.random0To1() * 180));
+        }
+        this.node.x = 0;
+        this.node.y = 0;
+        this.status = 0;
     },
 
     update(dt) {
@@ -45,8 +49,10 @@ cc.Class({
     setValue(v) {
         this.value = v;
         var n = Math.ceil(v / 10);
-        n = (n > 5) ? 5 : n;      
-        this.node.color = this.colorList[n];
+        n = (n > 5) ? 5 : n; 
+        if (this.type == 0) {
+            this.node.color = this.colorList[n];
+        }     
     },
 
     vibrateShape() {

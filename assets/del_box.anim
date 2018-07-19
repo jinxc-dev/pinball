@@ -3,7 +3,7 @@
   "_name": "del_box",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.2,
+  "_duration": 0.25,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -16,7 +16,31 @@
               {
                 "frame": 0,
                 "value": {
-                  "__uuid__": "9e33ef39-7791-4846-b2f7-a3df34f7ec6e"
+                  "__uuid__": "67f03655-527e-4b3e-b303-023cd4fbe085"
+                }
+              },
+              {
+                "frame": 0.05,
+                "value": {
+                  "__uuid__": "ce8e5563-488a-4cb4-bd73-b033bb05200b"
+                }
+              },
+              {
+                "frame": 0.11666666666666667,
+                "value": {
+                  "__uuid__": "22439a6e-78ee-467f-b39c-ce28eef422a6"
+                }
+              },
+              {
+                "frame": 0.16666666666666666,
+                "value": {
+                  "__uuid__": "b84d869e-a4ea-4988-b94c-e4b4fb81aaf3"
+                }
+              },
+              {
+                "frame": 0.21666666666666667,
+                "value": {
+                  "__uuid__": "102309e8-747f-45e2-baa5-b35df9184a4e"
                 }
               }
             ]
@@ -33,7 +57,7 @@
               }
             },
             {
-              "frame": 0.2,
+              "frame": 0.25,
               "value": {
                 "__type__": "cc.Vec2",
                 "x": 0.8,
@@ -47,7 +71,7 @@
   },
   "events": [
     {
-      "frame": 0.2,
+      "frame": 0.25,
       "func": "hideFX",
       "params": []
     }
