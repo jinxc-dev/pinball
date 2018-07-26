@@ -19,10 +19,6 @@ cc.Class({
             default:null,
             type: cc.Prefab
         },
-        bonusPrefab: {
-            default:[],
-            type: cc.Prefab
-        },
         delBoxAnim: {
             default: null,
             type:cc.Prefab
@@ -42,6 +38,10 @@ cc.Class({
         bar : {
             default: null,
             type: cc.Sprite
+        },
+        backBtn: {
+            default: null,
+            type: cc.Node
         },
         resumeBtn: {
             default: null,
@@ -64,14 +64,16 @@ cc.Class({
 
         this.score = 0;
         this.itemCnt = 5;
+        this.round = 1;
 
         //. ball object's array
         this.ballObj = [];
         this.delBoxPool = new cc.NodePool('delBox');
+        this.initGame();
      },
 
     start () {
-        this.initGame();
+        
        
 
         var self = this;
@@ -385,9 +387,25 @@ cc.Class({
         ];
         return data[tmpN];
     },
+    init(round) {
+        this.round = round;
+        this.initByRound();
+    },
 
-    makeItembyRound() {
-
+    initByRound() {
+        //. 
+        var n = this.round - 1;
+        var boxInfo = this.getRoundInfo(n);
+        var posY = 250;
+        for (var i = 0; i < boxInfo.length; i++) {
+            var row = boxInfo[i];
+            posY += this.stepY;
+            for (var j = 0; j < row.length; j++) {
+                if (row[j].t != -1) {
+                    this.createItem(row[j].t, cc.v2(row[j].x, posY), row[j].s, 0);
+                }
+            }
+        }
     }
 
 

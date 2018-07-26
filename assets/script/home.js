@@ -50,7 +50,8 @@ cc.Class({
         }, this);
         this.roundStartBtn.on('btnClicked', function() {
             console.log('Clicke Round Start Btn');
-        });
+            this.loadRoundGame(1);
+        }, this);
 
         this.node.on('closeGameScene', function() {
             this.closeMainGame();
@@ -69,6 +70,14 @@ cc.Class({
         this.gameSceneLayout.node.removeAllChildren();
         this.gameSceneLayout.node.active = false;
 
+    },
+    loadRoundGame(n) {
+        this.gameSceneLayout.node.removeAllChildren();
+        var scene = cc.instantiate(this.roundGamePrefab);
+        this.gameSceneLayout.node.active = true;
+        this.gameSceneLayout.node.addChild(scene);
+        scene.position = cc.v2(0, 0);
+        scene.getComponent('roundGame').init(1);
     }
 
     // update (dt) {},
