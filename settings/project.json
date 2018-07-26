@@ -25,7 +25,16 @@
   ],
   "design-resolution-height": 1136,
   "design-resolution-width": 640,
-  "excluded-modules": [],
+  "excluded-modules": [
+    "ParticleSystem",
+    "TiledMap",
+    "Spine Skeleton",
+    "VideoPlayer",
+    "WebView",
+    "DragonBones",
+    "StudioComponent",
+    "Camera"
+  ],
   "fit-height": true,
   "fit-width": false,
   "group-list": [
@@ -39,6 +48,5 @@
     "width": 960
   },
   "use-customize-simulator": false,
-  "use-project-simulator-setting": false,
-  "start-scene": "current"
+  "use-project-simulator-setting": false
 }

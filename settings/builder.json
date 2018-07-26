@@ -2,7 +2,11 @@
   "appKey": "",
   "appSecret": "",
   "encryptJs": true,
-  "excludeScenes": [],
+  "excludeScenes": [
+    "f450e9e3-a85e-4aa1-a2ff-ee84b2888f2e",
+    "1e142439-1608-48b5-8b4c-74b7362d6eb1",
+    "4d750087-a239-41bf-868b-ba0b17addc1a"
+  ],
   "fb-instant-games": {},
   "includeAnySDK": false,
   "includeSDKBox": false,
@@ -25,9 +29,9 @@
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "renderMode": "0",
+  "renderMode": "1",
   "startScene": "1486e5fd-e1c3-4fa1-bcdf-6b8e45a98ad5",
-  "title": "pinpall",
+  "title": "PinBall",
   "webOrientation": "auto",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",

@@ -17,6 +17,7 @@ cc.Class({
         this.value = 0;
         this.scoreLabel.node.color = cc.color(0, 0, 0, 255);
         this.scoreLabel.string = this.value;
+        this.game;
     },
 
     start() {
@@ -30,11 +31,11 @@ cc.Class({
               step = old_value;
             }
             that.setScore(that.value);
-            that.node.parent.parent.parent.getComponent('game').increaseSocre(step);
+            that.game.increaseSocre(step);
 
             if (that.value < 1) {
               var pos = that.node.position;
-              that.node.parent.parent.parent.getComponent('game').removeBox(pos);   
+              that.game.removeBox(pos);   
               that.node.removeFromParent();
               
             }
@@ -58,6 +59,9 @@ cc.Class({
 
     setUponStatus(status) {
         this.box.getComponent('shape').status = status;
+    },
+    init(game) {
+        this.game = game;
     }
 
 });

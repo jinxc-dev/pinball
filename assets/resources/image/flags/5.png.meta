@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "20cdeb12-deed-44b2-81fe-b07c9680ef9e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "5": {
+      "ver": "1.0.3",
+      "uuid": "2c54e03e-016e-4e5f-85e1-9973e10741ef",
+      "rawTextureUuid": "20cdeb12-deed-44b2-81fe-b07c9680ef9e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 1,
+      "width": 77,
+      "height": 78,
+      "rawWidth": 80,
+      "rawHeight": 80,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

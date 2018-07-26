@@ -48,8 +48,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 60
+      "width": 70,
+      "height": 70
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -111,8 +111,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 60
+      "width": 70,
+      "height": 70
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -146,7 +146,9 @@
       "a": 255
     },
     "value": 0,
-    "status": 0
+    "status": 0,
+    "rotate": 1,
+    "type": 0
   },
   {
     "__type__": "cc.RigidBody",
@@ -193,18 +195,18 @@
     "points": [
       {
         "__type__": "cc.Vec2",
-        "x": -29.9,
-        "y": -27.6
+        "x": -34.6,
+        "y": -31.9
       },
       {
         "__type__": "cc.Vec2",
-        "x": 30.1,
-        "y": -27.7
+        "x": 34.7,
+        "y": -32
       },
       {
         "__type__": "cc.Vec2",
-        "x": 0,
-        "y": 27.6
+        "x": 0.1,
+        "y": 33
       }
     ]
   },

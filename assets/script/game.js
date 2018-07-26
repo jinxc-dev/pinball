@@ -35,10 +35,7 @@ cc.Class({
             default: null,
             type: cc.Node
         },
-        ballCnt: 10,
-        shotStarted: false,
-        shotReadyStatus: true,
-        gameLevel: 1,
+
         bar : {
             default: null,
             type: cc.Sprite
@@ -54,16 +51,21 @@ cc.Class({
         gameoverLayout: {
             default:null,
             type: cc.Layout
-        }
+        },
+        restartBtn: {
+            default: null,
+            type: cc.Node
+        },
+        ballCnt: 10,
+        shotStarted: false,
+        shotReadyStatus: true,
+        gameLevel: 1,
 
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        cc.director.getPhysicsManager().enabled = true;
-        cc.director.getPhysicsManager().gravity = cc.v2 (0, -320);
-        cc.director.getCollisionManager().enabled = true;
         this.score = 0;
         this.itemCnt = 5;
 
@@ -73,10 +75,7 @@ cc.Class({
      },
 
     start () {
-        this.initGame();
-        this.shotReadyFunc();
-        this.shotReadyFunc();
-        this.shotReadyFunc();
+        this.refreshGame();
         
 
         var self = this;
@@ -134,13 +133,17 @@ cc.Class({
                 return;
             
             self.ballPut--;
-            console.log('ball cnt:' + self.ballPut);
-
             let comp = self.ballObj[self.ballPut].getComponent('ball');
 
             comp.setInitSpeed(self.shotInfo.pos);
             comp.setRigidActive(true);
         }, 0.1); 
+
+        this.restartBtn.on('btnClicked', function() {
+            this.refreshGame();
+            this.resumeLayout.node.active = false;
+            this.resumeGameStatus();
+        }, this);
        
     },
 
@@ -152,6 +155,7 @@ cc.Class({
 
         //. ball put cnt
         this.ballPut = this.ballCnt;
+        this.gameLevel = 1;
 
         this.shotReadyStatus = true;
         this.shotStarted = false;
@@ -241,6 +245,7 @@ cc.Class({
         if (type == 2) {
             w_item = cc.instantiate(this.scoreBoxs[n]);
             this.boxsNode.addChild(w_item);
+            w_item.getComponent('box_func').init(this);
             w_item.getComponent('box_func').setScore(value);
         } else if (type == 1) {
             w_item = cc.instantiate(this.bonusPrefab[n]);
@@ -300,7 +305,7 @@ cc.Class({
         var w_bouns_cnt = Math.round(2 * cc.random0To1());
         var w_box_cnt = Math.ceil((this.itemCnt - w_bouns_cnt - 1) * cc.random0To1()) + 1;
 
-        var objInfo = this.generateObjInfo(this.gameLevel * 3, this.gameLevel * 10, w_box_cnt, w_bouns_cnt);
+        var objInfo = this.generateObjInfo(this.gameLevel * 2, this.gameLevel * 6, w_box_cnt, w_bouns_cnt);
         this.generateItems(objInfo, true);
     },
 
@@ -317,7 +322,6 @@ cc.Class({
                 this.gameOver();
             }
             if (boxs[i].y > w_h) {
-                console.log('xxxxxx');
                 if (boxs[i].name == 'box') {
                     boxs[i].getComponent("box_func").setUponStatus(1);
                 } else {
@@ -438,6 +442,20 @@ cc.Class({
         this.gameoverLayout.node.active = true;
         this.gameoverLayout.node.getComponent('gameOver').setScore(this.score);
         this.pauseGameStatus();
+    },
+
+    refreshGame() {
+        var n = this.ballObj.length;
+        for (var i = 0; i < n; i++) {
+            var obj = this.ballObj.pop();
+            obj.removeFromParent();
+        }
+        this.boxsNode.removeAllChildren();
+        this.ballCnt = 10;
+        this.initGame();
+        this.shotReadyFunc();
+        this.shotReadyFunc();
+        this.shotReadyFunc();
     }
 
 
