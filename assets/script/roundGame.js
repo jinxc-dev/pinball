@@ -22,7 +22,11 @@ cc.Class({
         delBoxAnim: {
             default: null,
             type:cc.Prefab
-        },  
+        },
+        roundBox: {
+            default: null,
+            type: cc.Prefab
+        },
         gameLayout: {
             default: null,
             type: cc.Layout
@@ -54,6 +58,10 @@ cc.Class({
         gameoverLayout: {
             default:null,
             type: cc.Layout
+        },
+        roundLabel: {
+            default: null,
+            type: cc.Label
         }
 
     },
@@ -72,9 +80,7 @@ cc.Class({
         this.initGame();
      },
 
-    start () {
-        
-       
+    start () {      
 
         var self = this;
 
@@ -87,7 +93,7 @@ cc.Class({
             }
         });
 
-        this.resumeBtn.on("touchend", function(){
+        this.backBtn.on("touchend", function(){
             self.resumeLayout.node.active = true;
             self.resumeLayout.node.getComponent('resumeGame').init(self);
             self.pauseGameStatus();
@@ -164,6 +170,12 @@ cc.Class({
         this.BallLabel.string = this.ballCnt;
         this.gameLayout.node.width = this.node.width;
         this.gameLayout.node.height = this.node.height;
+        this.shotInfo= {
+            alpha: 0,
+            pos: cc.v2(0, 1),
+            d: 1000,
+            scale: 0.3
+        };
 
 
         for (var i = 0; i < this.ballCnt; i++) {
@@ -223,11 +235,21 @@ cc.Class({
         if (type == 0) {
             w_item = cc.instantiate(this.scoreBoxs[n]);
             this.boxsNode.addChild(w_item);
-            w_item.getComponent('box_func').init(this);
+            w_item.getComponent('box_func').init(this, 0);
             w_item.getComponent('box_func').setScore(value);
-        }         
+        }
         w_item.setPosition(pos);
     },
+
+    createRoundBox(pos, value) {
+        var w_item;
+        w_item = cc.instantiate(this.roundBox);
+        this.boxsNode.addChild(w_item);
+        w_item.getComponent('roundBox').init(this, this.round);
+        w_item.getComponent('roundBox').setScore(value);
+        w_item.setPosition(pos);
+    },
+
 
     //. about ball
     createBall(pos) {
@@ -390,6 +412,7 @@ cc.Class({
     init(round) {
         this.round = round;
         this.initByRound();
+        this.roundLabel.string = "第" + this.round + "关";
     },
 
     initByRound() {
@@ -399,12 +422,14 @@ cc.Class({
         var posY = 250;
         for (var i = 0; i < boxInfo.length; i++) {
             var row = boxInfo[i];
-            posY += this.stepY;
             for (var j = 0; j < row.length; j++) {
                 if (row[j].t != -1) {
                     this.createItem(row[j].t, cc.v2(row[j].x, posY), row[j].s, 0);
+                } else {
+                    this.createRoundBox(cc.v2(row[j].x, posY), row[j].s);
                 }
             }
+            posY += this.stepY;
         }
     }
 

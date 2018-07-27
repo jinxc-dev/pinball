@@ -33,6 +33,7 @@ cc.Class({
             that.setScore(that.value);
             that.game.increaseSocre(step);
 
+            that.runMove();
             if (that.value < 1) {
               var pos = that.node.position;
               that.game.removeBox(pos);   
@@ -60,8 +61,17 @@ cc.Class({
     setUponStatus(status) {
         this.box.getComponent('shape').status = status;
     },
-    init(game) {
+    init(game, rotate) {
         this.game = game;
+        this.box.getComponent('shape').isRotation(rotate);
+    },
+
+    runMove() {
+        var m_stepX1 = cc.moveBy(0.05, 0, 1);//.easing(cc.easeElasticInOut());
+        var m_stepX2 = cc.moveBy(0.05, 0, -1);//.easing(cc.easeElasticInOut());
+        var se = cc.sequence(m_stepX1, m_stepX2);
+        this.node.stopAction();
+        this.node.runAction(se);//.repeat(3);
     }
 
 });

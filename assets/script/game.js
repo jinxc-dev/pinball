@@ -245,7 +245,7 @@ cc.Class({
         if (type == 2) {
             w_item = cc.instantiate(this.scoreBoxs[n]);
             this.boxsNode.addChild(w_item);
-            w_item.getComponent('box_func').init(this);
+            w_item.getComponent('box_func').init(this, 1);
             w_item.getComponent('box_func').setScore(value);
         } else if (type == 1) {
             w_item = cc.instantiate(this.bonusPrefab[n]);

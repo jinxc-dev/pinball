@@ -68,6 +68,7 @@ cc.Class({
     },
     closeMainGame() {
         this.gameSceneLayout.node.removeAllChildren();
+        cc.director.getPhysicsManager().enabled = true;
         this.gameSceneLayout.node.active = false;
 
     },
