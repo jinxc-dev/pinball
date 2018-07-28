@@ -8,41 +8,36 @@
   },
   "collision-matrix": [
     [
-      true,
-      true,
-      true
-    ],
-    [
-      true,
-      false,
-      true
-    ],
-    [
-      true,
-      true,
       true
     ]
   ],
-  "design-resolution-height": 1136,
-  "design-resolution-width": 640,
+  "design-resolution-height": 640,
+  "design-resolution-width": 960,
   "excluded-modules": [
+    "Mask",
     "ParticleSystem",
     "TiledMap",
     "Spine Skeleton",
+    "ProgressBar",
+    "ScrollBar",
+    "ScrollView",
+    "Toggle",
+    "Slider",
     "EditorBox",
     "VideoPlayer",
     "WebView",
     "RichText",
+    "AudioSource",
+    "Collider",
+    "Graphics",
     "DragonBones",
-    "StudioComponent",
+    "Physics",
     "Camera"
   ],
   "fit-height": true,
   "fit-width": false,
   "group-list": [
-    "default",
-    "Ball",
-    "wall"
+    "default"
   ],
   "simulator-orientation": false,
   "simulator-resolution": {

@@ -28,12 +28,20 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.list = null;
-        this.info = null;
+        this.list;
+        this.info;
     },
 
     start () {
+        this.node.on('touchend', function(){
+            if (this.info.status == 'lock') {
+                return;
+            }
 
+            var event = new cc.Event.EventCustom("roundLoadGame", true);
+            event.setUserData(this.info.number);
+            this.node.dispatchEvent(event);
+        }, this);
     },
 
     //. info

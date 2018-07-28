@@ -47,7 +47,7 @@ cc.Class({
             default: null,
             type: cc.Node
         },
-        resumeBtn: {
+        restartBtn: {
             default: null,
             type: cc.Node
         },
@@ -62,6 +62,10 @@ cc.Class({
         roundLabel: {
             default: null,
             type: cc.Label
+        },
+        successRoundLayout: {
+            default: null,
+            type: cc.Layout
         }
 
     },
@@ -73,6 +77,9 @@ cc.Class({
         this.score = 0;
         this.itemCnt = 5;
         this.round = 1;
+        this.roundScore;
+
+        this.getRoundScore();
 
         //. ball object's array
         this.ballObj = [];
@@ -137,14 +144,34 @@ cc.Class({
                 return;
             
             self.ballPut--;
-            console.log('ball cnt:' + self.ballPut);
 
             let comp = self.ballObj[self.ballPut].getComponent('ball');
 
             comp.setInitSpeed(self.shotInfo.pos);
             comp.setRigidActive(true);
         }, 0.1); 
-       
+
+        //. Success Round Event
+        this.node.on('successRound', function(){
+            this.successRound();
+        }, this);
+
+        this.node.on('nextRound', function(){
+            this.loadGame(this.round + 1);
+        }, this);
+
+        this.node.on('restartRound', function(){
+            this.loadGame(this.round);
+        }, this);
+
+        this.restartBtn.on("btnClicked", function() {
+            this.resumeLayout.node.active = false;
+            this.loadGame(this.round);
+        }, this);
+
+        //. start sound
+        
+        cc.audioEngine.play(cc.url.raw("resources/sound/soccer.mp3"), false, 1);
     },
 
     update (dt) {
@@ -180,7 +207,9 @@ cc.Class({
 
         for (var i = 0; i < this.ballCnt; i++) {
             this.ballObj.push(this.createBall(this.initBallPos));
-        }       
+        }
+
+        this.initBar();
    
     },
 
@@ -288,6 +317,11 @@ cc.Class({
         this.bar.node.setRotation(this.shotInfo.alpha);
         this.updateBoxPosY();
     },
+    initBar() {
+        this.showBar(true);
+        this.bar.node.setScale(this.shotInfo.scale, this.shotInfo.scale);
+        this.bar.node.setRotation(this.shotInfo.alpha);
+    },
 
     updateBoxPosY() {
         var boxs = this.boxsNode.children;
@@ -299,7 +333,7 @@ cc.Class({
                 boxs[i].getComponent("box_func").plusPosY(this.stepY);
             }
             if (boxs[i].y > limit_h) {
-                this.gameOver();
+                this.failGame();
             }
             if (boxs[i].y > w_h) {
                 if (boxs[i].name == 'box') {
@@ -354,9 +388,8 @@ cc.Class({
         }
     },
 
-    gameOver() {
+    failGame() {
         this.gameoverLayout.node.active = true;
-        this.gameoverLayout.node.getComponent('gameOver').setScore(this.score);
         this.pauseGameStatus();
     },
 
@@ -417,6 +450,7 @@ cc.Class({
 
     initByRound() {
         //. 
+        this.score = 0;
         var n = this.round - 1;
         var boxInfo = this.getRoundInfo(n);
         var posY = 250;
@@ -431,6 +465,72 @@ cc.Class({
             }
             posY += this.stepY;
         }
+    },
+
+    //. success Round function
+    successRound() {
+        var old_value = 0;
+        if (this.roundScore[this.round - 1] == undefined) {
+            this.roundScore.push(this.score);
+        } else {
+            old_value = this.roundScore[this.round - 1];
+            if (old_value < this.score) {
+                this.roundScore[this.round - 1] = this.score;
+            }
+        }
+        this.setRoundScore();
+        this.pauseGameStatus();
+        this.successRoundLayout.node.active = true;
+        //. send score
+
+    },
+
+    getRoundScore() {
+        var ls = cc.sys.localStorage;
+        var data = ls.getItem("roundScore");
+        if (!Array.isArray(data)) {
+            this.roundScore = data.split(",");
+        } else {
+            this.roundScore = data;
+        }
+        for (var i = 0; i < this.roundScore.length; i++) {
+            this.roundScore[i] = parseInt(this.roundScore[i]);
+        }
+    },
+    setRoundScore() {
+        var ls = cc.sys.localStorage;
+        ls.setItem("roundScore", this.roundScore);
+
+        //. send total value
+        var sum = 0;
+        for (var i = 0; i < this.roundScore.length; i++) {
+            sum += this.roundScore[i];
+        }
+
+        var event = new cc.Event.EventCustom("sendScore", true);
+        var data = {
+            key: "k_round",
+            score: sum
+        };
+        event.setUserData(data);
+        this.node.dispatchEvent(event);
+
+    },
+
+    loadGame(round) {
+        var n = this.ballObj.length;
+        for (var i = 0; i < n; i++) {
+            var obj = this.ballObj.pop();
+            obj.removeFromParent();
+        }
+        this.boxsNode.removeAllChildren();
+        // this.ballCnt = 10;
+        this.initGame();
+        this.init(round);
+        this.resumeGameStatus();
+
+        cc.audioEngine.play(cc.url.raw("resources/sound/soccer.mp3"), false, 1);
+        
     }
 
 

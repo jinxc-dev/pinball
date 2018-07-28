@@ -64,6 +64,7 @@ cc.Class({
     init(game, rotate) {
         this.game = game;
         this.box.getComponent('shape').isRotation(rotate);
+        this.box.setPositionY(0.1);
     },
 
     runMove() {

@@ -16,11 +16,13 @@ cc.Class({
         } else {
             other.node.dispatchEvent(new cc.Event.EventCustom("power_ball", true));
         }
+        cc.audioEngine.play(this.soundUrl, false, 1);
         this.node.removeFromParent();
     },
 
     onLoad() {  
-      this.status = 0;    
+      this.status = 0;
+      this.soundUrl = cc.url.raw("resources/sound/pool.mp3");
     },
 
     start() {

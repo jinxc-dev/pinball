@@ -27,7 +27,7 @@ cc.Class({
     },
 
     start () {
-        this.refreshContent();
+        // this.refreshContent();
     },
 
     refreshContent() {
@@ -59,9 +59,23 @@ cc.Class({
     },
 
     getItemInfo() {
-        var score = [12, 34, 56, 78, 9, 0];
+        var score = [];
         var items = [];
-        var b_ready = false;
+
+        this.totalScore = 0;
+
+        var ls = cc.sys.localStorage;
+        var strScore = ls.getItem("roundScore");
+
+        if (!Array.isArray(strScore)) {
+            score = strScore.split(",");
+        } else {
+            score = strScore;
+        }
+
+        // if (strScore != null) {
+        //     score = strScore.split(",");
+        // } 
         for (var i = 0; i <  this.roundCnt; i++) {
             var temp = {
                 number: i + 1,
@@ -69,22 +83,20 @@ cc.Class({
                 score: 0
             };
             if (i < score.length) {
-                if (!b_ready) {
-                    if (score[i] == 0) {
-                        b_ready = true;
-                        temp.status = 'ready';
-                    } else {
-                        temp.status = 'pass';
-                        temp.score = score[i];
-                    }
-                }
-
-                this.totalScore += score[i];
+                temp.status = 'pass';
+                temp.score = score[i];
+                this.totalScore += parseInt(score[i]);
+            } else if (i == score.length) {
+                temp.status = 'ready';
             }
             items.push(temp);
         }
         return items;
+    },
+    onEnable() {
+        this.refreshContent();
     }
+
 
     // update (dt) {},
 });

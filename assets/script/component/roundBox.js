@@ -37,7 +37,12 @@ cc.Class({
 
         if (this.value < 1) {
             var pos = this.node.position;
-            this.game.removeBox(pos);   
+            this.game.removeBox(pos);
+            //. 
+            var event = new cc.Event.EventCustom("successRound", true);
+            // event.setUserData(power);
+            this.node.dispatchEvent(event);
+
             this.node.removeFromParent();
         }
 

@@ -442,6 +442,14 @@ cc.Class({
         this.gameoverLayout.node.active = true;
         this.gameoverLayout.node.getComponent('gameOver').setScore(this.score);
         this.pauseGameStatus();
+
+        var event = new cc.Event.EventCustom("sendScore", true);
+        var data = {
+            key: "k_total",
+            score: this.score
+        };
+        event.setUserData(data);
+        this.node.dispatchEvent(event);
     },
 
     refreshGame() {

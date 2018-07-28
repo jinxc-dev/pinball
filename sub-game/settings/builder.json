@@ -2,9 +2,7 @@
   "appKey": "",
   "appSecret": "",
   "encryptJs": true,
-  "excludeScenes": [
-    "4d750087-a239-41bf-868b-ba0b17addc1a"
-  ],
+  "excludeScenes": [],
   "fb-instant-games": {},
   "includeAnySDK": false,
   "includeSDKBox": false,
@@ -16,28 +14,28 @@
   "oauthLoginServer": "",
   "optimizeHotUpdate": false,
   "orientation": {
-    "landscapeLeft": false,
-    "landscapeRight": false,
-    "portrait": true,
-    "upsideDown": true
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
   },
-  "packageName": "org.cocos2d.pinpall",
+  "packageName": "org.cocos2d.sub-game",
   "privateKey": "",
   "qqplay": {
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "renderMode": "0",
-  "startScene": "1486e5fd-e1c3-4fa1-bcdf-6b8e45a98ad5",
-  "title": "PinBall",
+  "renderMode": "1",
+  "startScene": "e384335b-428a-4253-ace0-ce8a8a6de3aa",
+  "title": "sub-game",
   "webOrientation": "auto",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
     "appid": "wx6ac3f5090a6b99c5",
-    "isSubdomain": false,
+    "isSubdomain": true,
     "orientation": "portrait",
-    "subContext": "sub-game"
+    "subContext": ""
   },
-  "xxteaKey": "bdb0d198-b5e6-4f",
+  "xxteaKey": "4682b1da-74ca-4d",
   "zipCompressJs": true
 }
