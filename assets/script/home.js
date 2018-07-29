@@ -53,7 +53,7 @@ cc.Class({
         var ls = cc.sys.localStorage;
         var r = ls.getItem("roundScore");
         if (r == "") {
-            ls.setItem("roundStore", []);
+            ls.setItem("roundScore", []);
         }
         this.rankViewLayout.node.active = false;
     },
@@ -73,7 +73,7 @@ cc.Class({
             if (!Array.isArray(r_score)) {
                 r_array = r_score.split(",");
             }
-            this.loadRoundGame(r_array.length);
+            this.loadRoundGame(r_array.length + 1);
         }, this);
 
         this.node.on('closeGameScene', function() {
