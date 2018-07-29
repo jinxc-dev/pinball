@@ -18,6 +18,7 @@ cc.Class({
         this.removeChild();
         if (window.wx != undefined) {
             window.wx.onMessage(data => {
+                this.pageNum = 0;
                 cc.log("Message：", data)
                 if (data.messageType == 0) {
                     this.removeChild();
@@ -39,7 +40,7 @@ cc.Class({
         }, this);
         this.nextBtn.on('btnClicked', function(){
             this.pageNum ++;
-            var end = Math.floor(this.rankData.length / this.displayCnt) - 1;
+            var end = Math.floor(this.rankData.length / this.displayCnt);
             this.pageNum = (this.pageNum > end)? end: this.pageNum;
             this.displayRank(this.rankData, this.pageNum, this.displayCnt);      
             
@@ -62,7 +63,8 @@ cc.Class({
                     window.wx.setUserCloudStorage({
                         KVDataList: [{key: key, value: "" + score}],
                         success: function (res) {
-                            console.log('setUserCloudStorage', 'success', res)
+                            console.log('setUserCloudStorage', 'success', res);
+                            
                         },
                         fail: function (res) {
                             console.log('setUserCloudStorage', 'fail')
@@ -87,6 +89,7 @@ cc.Class({
         this.content.removeAllChildren();
     },
     fetchFriendData(key) {
+        this.removeChild();
         this.changeTitle(key);
         this.content.active = true;
         if (window.wx != undefined) {
@@ -105,9 +108,10 @@ cc.Class({
                         if (b.KVDataList.length == 0) {
                             return -1;
                         }
-                        return b.KVDataList[0].value - a.KVDataList[0].value;
+                        return b.KVDataList[0].value - a.KVDataList[0].value;                        
                     });
                     this.rankData = data;
+                    this.displayRank(this.rankData, this.pageNum, this.displayCnt);
                 },
                 fail: res => {
                     console.log("wx.getFriendCloudStorage fail", res);

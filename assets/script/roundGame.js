@@ -182,6 +182,7 @@ cc.Class({
 
         //. ball put cnt
         this.ballPut = this.ballCnt;
+        this.score = 0;
 
         this.shotReadyStatus = true;
         this.shotStarted = false;
@@ -451,6 +452,7 @@ cc.Class({
     initByRound() {
         //. 
         this.score = 0;
+        this.ScoreLabel.string = this.score;
         var n = this.round - 1;
         var boxInfo = this.getRoundInfo(n);
         var posY = 250;

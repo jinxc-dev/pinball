@@ -38,6 +38,10 @@ cc.Class({
     },
     createImage(avatarUrl) {
         if (window.wx != undefined) {
+            if (avatarUrl == "") {
+                this.avatarImgSprite.node.active = false;
+                return;
+            }
             try {
                 let image = wx.createImage();
                 image.onload = () => {
