@@ -159,5 +159,16 @@ cc.Class({
         }
         
         this.rankData = data;
+    },
+
+    testFun() {
+        window.wx.chooseAddress({
+            success: function(res) {
+                console.log(JSON.stringify(res));
+            },
+            fail: function(err) {
+                console.log('fail');
+            }
+        })
     }
 });

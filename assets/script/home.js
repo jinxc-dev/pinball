@@ -42,7 +42,11 @@ cc.Class({
         chartBtn: {
             default: null,
             type: cc.Node
-        }
+        },
+        friendBtn: {
+            default: null,
+            type: cc.Node
+        },
     },
 
 
@@ -52,9 +56,10 @@ cc.Class({
         cc.director.getCollisionManager().enabled = true;
         var ls = cc.sys.localStorage;
         var r = ls.getItem("roundScore");
-        if (r == "") {
+        if (r == "" || r == null) {
             ls.setItem("roundScore", []);
         }
+
         this.rankViewLayout.node.active = false;
     },
 
@@ -117,6 +122,18 @@ cc.Class({
             this.rankViewLayout.node.active = true;
             this.rankViewLayout.node.getComponent("rankView").rankList(data.key);
         }, this);
+
+        this.friendBtn.on('touchend', function() {
+            console.log("friendBtn");
+            // window.wx.showShareMenu({withShareTicket : true});
+            // window.wx.getShareInfo({withShareTicket : true});
+            if (window.wx != undefined) {
+                window.wx.shareAppMessage({title: 'test', imageUrl: 'https://wx1.sinaimg.cn/mw1024/59a47337ly1frj7nve36uj20kd0cqamo.jpg', query: "from=group"});
+            }
+
+            // // this.rankViewLayout.node.getComponent("rankView").getLaunchOptionsSync();
+
+        },this);
 
     },
 

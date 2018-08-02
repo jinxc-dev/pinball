@@ -65,4 +65,47 @@ cc.Class({
     update() {
         this._updateSubCanvas();
     },
+
+    getLaunchOptionsSync() {
+        // window.wx.shareAppMessage({
+        //     title: "test",
+        //     query: "form=group",
+        //     complete: function () {
+        //         console.log(arguments);
+        //     },
+        //     success: function (shareTickets, groupMsgInfos) {
+        //         console.log(shareTickets);
+        //         console.log(groupMsgInfos);
+        //     }
+        // })
+    
+        // window.wx.updateShareMenu({
+        //     withShareTicket: true,//开启群发
+        //     success: function () {
+        //         console.log("updateShareMenu success");
+        //     },
+        //     fail: function (e) {
+        //         console.log("updateShareMenu fail" + e);
+        //     }
+        // });
+
+        // var LaunchOption = window.wx.getLaunchOptionsSync();
+        // console.log("LaunchOption:" + JSON.stringify(LaunchOption));
+        // console.log("LaunchOption quary:" + JSON.stringify(LaunchOption.query));
+        // window.wx.onShareAppMessage(function () {
+        //     // 用户点击了“转发”按钮
+        //     return {
+        //         title: '我要转发',
+        //         success:function(res){
+        //             console.log('拉起分享 成功');
+        //             console.log(res);
+        //         },
+        //         fail:function(res){
+        //             console.log('拉起分享 失败');
+        //             console.log(res);
+        //         },
+        //     };
+        // });
+        // return ;
+    }
 });

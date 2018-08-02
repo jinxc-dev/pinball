@@ -60,6 +60,7 @@ cc.Class({
         shotStarted: false,
         shotReadyStatus: true,
         gameLevel: 1,
+        tutorialNode: cc.Node
 
     },
 
@@ -72,6 +73,14 @@ cc.Class({
         //. ball object's array
         this.ballObj = [];
         this.delBoxPool = new cc.NodePool('delBox');
+
+        var ls = cc.sys.localStorage;
+        var r = ls.getItem("newStartGame");
+        if (r == "" || r == null) {
+            ls.setItem("newStartGame", 1);
+            this.tutorialNode.active = true;           
+        }
+
      },
 
     start () {
@@ -235,7 +244,7 @@ cc.Class({
             _d = (_w - w) / 2 * cc.random0To1();
 
         y = this.initBoxPos.y + w;
-        x = this.initBoxPos.x + _w * n + _d + w / 2;
+        x = this.initBoxPos.x + _w * n + _d + w / 2 + 10;
 
         return cc.v2(x, y);
     },
