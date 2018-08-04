@@ -51,8 +51,8 @@ cc.Class({
             }
             this.status = -1;
 
-            var m_step1 = cc.moveBy(.5, 0, 920).easing(cc.easeCubicActionOut());
-            var m_step2 = cc.moveBy(.5, xx, -130).easing(cc.easeCubicActionOut());
+            var m_step1 = cc.moveBy(.5, 0, 920);//.easing(cc.easeCubicActionOut());
+            var m_step2 = cc.moveBy(.5, xx, -130);//.easing(cc.easeCubicActionOut());
             var callback = cc.callFunc(this.readyStatus, this);
             var se = cc.sequence(m_step1, m_step2, callback);
             this.node.runAction(se);
@@ -76,6 +76,17 @@ cc.Class({
     },
     getPowerValue() {
         return this.power;
+    },
+
+    goInitPos(initPos) {
+        this.status = -1;
+        this.setRigidActive(false);
+        this.node.stopAllActions();
+
+        var m_step1 = cc.moveTo(.5, initPos);
+        var callback = cc.callFunc(this.readyStatus, this);
+        var se = cc.sequence(m_step1, callback);
+        this.node.runAction(se);        
     }
 
     

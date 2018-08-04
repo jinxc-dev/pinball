@@ -67,8 +67,12 @@ cc.Class({
         var ls = cc.sys.localStorage;
         var strScore = ls.getItem("roundScore");
 
+        console.log("TTT:" + strScore);
+
         if (!Array.isArray(strScore)) {
-            score = strScore.split(",");
+            if (strScore != "") {
+                score = strScore.split(",");
+            } 
         } else {
             score = strScore;
         }

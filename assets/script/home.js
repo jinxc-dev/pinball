@@ -54,11 +54,12 @@ cc.Class({
         cc.director.getPhysicsManager().enabled = true;
         cc.director.getPhysicsManager().gravity = cc.v2 (0, -320);
         cc.director.getCollisionManager().enabled = true;
-        var ls = cc.sys.localStorage;
-        var r = ls.getItem("roundScore");
-        if (r == "" || r == null) {
-            ls.setItem("roundScore", []);
-        }
+        // cc.sys.localStorage.removeItem("ballGroupCnt");
+        // cc.sys.localStorage.removeItem("roundScore");
+
+        this.gameStorageCheck("roundScore", []);
+        this.gameStorageCheck("ballGroupCnt", 0);
+        
 
         this.rankViewLayout.node.active = false;
     },
@@ -142,12 +143,15 @@ cc.Class({
         var scene = cc.instantiate(this.mainGamePrefab);
         this.gameSceneLayout.node.active = true;
         this.gameSceneLayout.node.addChild(scene);
+        // this.node.pauseSystemEvents(true);
         // scene.position = cc.v2(0, 0);
     },
     closeMainGame() {
         this.gameSceneLayout.node.removeAllChildren();
         cc.director.getPhysicsManager().enabled = true;
         this.gameSceneLayout.node.active = false;
+        // this.node. resumeSystemEvents(true);
+
 
     },
     loadRoundGame(n) {
@@ -157,7 +161,16 @@ cc.Class({
         this.gameSceneLayout.node.addChild(scene);
         scene.position = cc.v2(0, 0);
         scene.getComponent('roundGame').init(n);
-    }
+        // this.node.pauseSystemEvents(true);
+    },
+
+    gameStorageCheck(key, value) {
+        var ls = cc.sys.localStorage;
+        var r = ls.getItem(key);
+        if (r == "" || r == null) {
+            ls.setItem(key, value);
+        }
+    },
 
     // update (dt) {},
 });

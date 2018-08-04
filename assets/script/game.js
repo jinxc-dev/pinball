@@ -60,7 +60,12 @@ cc.Class({
         shotStarted: false,
         shotReadyStatus: true,
         gameLevel: 1,
-        tutorialNode: cc.Node
+        tutorialNode: cc.Node,
+        addBoxItem: cc.Node,
+        addBallBtn: cc.Node,
+        dialogWnd: cc.Node,
+        ballGroupLabel: cc.Label,
+        shotBallLabel: cc.Label
 
     },
 
@@ -69,6 +74,7 @@ cc.Class({
     onLoad () {
         this.score = 0;
         this.itemCnt = 5;
+        this.ballGroupCnt = 0;
 
         //. ball object's array
         this.ballObj = [];
@@ -80,22 +86,27 @@ cc.Class({
             ls.setItem("newStartGame", 1);
             this.tutorialNode.active = true;           
         }
+        this.totalBallCnt = 0;
+        this.dialogWnd.getComponent('dialogWnd').init(this);
+        this.isAddBoxFun = false;
+        this.isAddBallFun = true;
+        this.addBallGroupCnt = 0;
 
      },
 
     start () {
-        this.refreshGame();
-        
+        this.refreshGame();       
 
         var self = this;
+        this.shotBallCnt = 0;
 
         this.gameLayout.node.on("touchend", function(event){
-            if (self.shotReadyStatus) {
+                self.shotBallCnt = self.ballObj.length;
                 self.shotStarted = true;
                 self.shotReadyStatus = false;
                 self.shotInfo.pos = self.calcSpeedOfBall(self.shotInfo.pos, self.shotInfo.d);
                 self.showBar(false);
-            }
+                self.gameLayout.node.pauseSystemEvents(true);
         });
 
         this.resumeBtn.on("touchend", function(){
@@ -104,16 +115,31 @@ cc.Class({
             self.pauseGameStatus();
         });
 
+        //. event put ball 
         this.gameLayout.node.on("comeback_ball", function(){
             self.ballPut ++;
-            self.shotStarted = false;
-            if (self.ballPut == self.ballCnt) {
-                self.shotReadyFunc();
-            }
-        });
+           
+            if (self.ballPut == self.ballObj.length) {
+                self.ballPut = 0;
+                //. addtional ball create.
+                for (var i = 0; i < 10 * this.addBallGroupCnt; i++) {
+                    this.ballObj.push(this.createBall(this.initBallPos));
+                }
+                this.ballCnt = this.ballObj.length;
+                this.BallLabel.string = this.ballCnt;
+                this.addBallGroupCnt = 0;
 
+                self.scheduleOnce(function() {
+                    self.gameLayout.node.resumeSystemEvents(true);
+                    self.shotReadyFunc(); 
+                }, 0.3);
+            }
+        }, this);
+
+        //. when move touch, event bar move.
         this.gameLayout.node.on("touchmove", this.onTouchMove, this);
 
+        //. event to add ball.
         this.gameLayout.node.on("add_ball", function(event){
             console.log("Add-Ball");
             var pos = event.getUserData();
@@ -131,27 +157,50 @@ cc.Class({
             self.BallLabel.string = self.ballCnt;
         });
 
+        //. schedule shot ball
         this.schedule(function() {
-            if (self.shotReadyStatus){
+            if (!self.shotStarted) 
+                return;
+            if (self.shotBallCnt == 0) {
+                this.shotBallLabel.string = "";
                 return;
             }
-
-            if (self.shotStarted == false) 
-                return;
-            if (self.ballPut == 0)
-                return;
             
-            self.ballPut--;
-            let comp = self.ballObj[self.ballPut].getComponent('ball');
+            self.shotBallCnt--;
+            this.shotBallLabel.string = self.shotBallCnt;
+            console.log(self.shotBallCnt);
+            let comp = self.ballObj[self.shotBallCnt].getComponent('ball');
 
             comp.setInitSpeed(self.shotInfo.pos);
             comp.setRigidActive(true);
         }, 0.1); 
-
+        
+        //. restart button event
         this.restartBtn.on('btnClicked', function() {
             this.refreshGame();
             this.resumeLayout.node.active = false;
             this.resumeGameStatus();
+        }, this);
+
+        //. 
+        this.addBoxItem.on('btnClicked', function() {
+            if (this.isAddBoxFun) {
+                this.shotReadyStatus = true;
+                this.ballPut = 0;
+                this.shotBallCnt = 0;
+                this.showBar(false);
+                for (var i = 0; i < this.ballObj.length; i++) {
+                    this.ballObj[i].getComponent('ball').goInitPos(cc.v2(this.initBallPos.x, 980));
+                }
+            } else {
+                this.dialogWnd.getComponent('dialogWnd').setContent(["欣党视频可以解锁\n收球功能。", "收球功能可以使用了"]);
+                this.isAddBoxFun = true;
+            }
+
+        }, this);
+
+        this.addBallBtn.on('touchend', function() {
+            this.addBallGroupEvent();
         }, this);
        
     },
@@ -160,10 +209,12 @@ cc.Class({
 
     },
 
+    
+
     initGame () {
 
         //. ball put cnt
-        this.ballPut = this.ballCnt;
+        this.ballPut = 0;
         this.gameLevel = 1;
 
         this.shotReadyStatus = true;
@@ -172,8 +223,6 @@ cc.Class({
         //. ball init position.
         this.gameRegion = cc.rect(0, 0, this.gameLayout.node.width, this.gameLayout.node.height);
 
-        // this.initBallPos = cc.v2(this.gameRegion.width / 2, this.gameRegion.height * 0.84);
-        // this.initBoxPos = cc.rect(50, this.gameRegion.height * 0.16, this.gameRegion.width - 100, this.gameRegion.height * 0.84);
         this.initBallPos = cc.v2(320, 950);
         this.initBoxPos = new cc.Rect(50, 200, 540, 935);
         this.stepY = this.initBoxPos.height / 9.5;
@@ -183,11 +232,9 @@ cc.Class({
         this.gameLayout.node.width = this.node.width;
         this.gameLayout.node.height = this.node.height;
 
-
         for (var i = 0; i < this.ballCnt; i++) {
             this.ballObj.push(this.createBall(this.initBallPos));
         }       
-   
     },
 
     //. touchend event 
@@ -237,14 +284,14 @@ cc.Class({
     //. box function.
 
     generateItemPosX(w, n, b_rand) {
-        var _w = this.initBoxPos.width / this.itemCnt;
+        var _w = 108;//this.initBoxPos.width / this.itemCnt;
         var x, y;
         var _d = (_w - w) / 2;
         if (b_rand)
-            _d = (_w - w) / 2 * cc.random0To1();
+            _d = 10 * (1- cc.random0To1());
 
-        y = this.initBoxPos.y + w;
-        x = this.initBoxPos.x + _w * n + _d + w / 2 + 10;
+        y = this.initBoxPos.y + 30;
+        x = this.initBoxPos.x + 108 * (n + 0.5) + _d;
 
         return cc.v2(x, y);
     },
@@ -287,13 +334,13 @@ cc.Class({
     increaseSocre(step) {
         this.score += step;
         this.ScoreLabel.string = this.score;
-        // this.gainScore(cc.v2(100, 100));
     },
-
     //. shot ready function
     shotReadyFunc() {
         this.gameLevel ++;
-        for (var i = 0; i < this.ballCnt; i++) {
+        this.shotBallCnt = 0;
+        this.shotBallLabel.string = this.ballCnt;
+        for (var i = 0; i < this.ballObj.length; i++) {
             this.ballObj[i].x = this.initBallPos.x;
             this.ballObj[i].y = this.initBallPos.y;
         }
@@ -447,6 +494,19 @@ cc.Class({
         }
     },
 
+    pauseGameEvent() {
+        this.gameLayout.node.pauseSystemEvents(true);
+        this.resumeBtn.pauseSystemEvents(true);
+        this.addBoxItem.pauseSystemEvents(true);
+        this.addBallBtn.pauseSystemEvents(true);
+    },
+    resumeGameEvent() {
+        this.gameLayout.node.resumeSystemEvents(true);
+        this.resumeBtn.resumeSystemEvents(true);
+        this.addBoxItem.resumeSystemEvents(true);
+        this.addBallBtn.resumeSystemEvents(true);
+    },
+
     gameOver() {
         this.gameoverLayout.node.active = true;
         this.gameoverLayout.node.getComponent('gameOver').setScore(this.score);
@@ -463,16 +523,43 @@ cc.Class({
 
     refreshGame() {
         var n = this.ballObj.length;
+        this.isAddBoxFun = false;
+        this.isAddBallFun = false;
+
         for (var i = 0; i < n; i++) {
             var obj = this.ballObj.pop();
             obj.removeFromParent();
         }
         this.boxsNode.removeAllChildren();
-        this.ballCnt = 10;
+        
+        //. get ballGroup;
+        this.ballGroupCnt = parseInt(cc.sys.localStorage.getItem('ballGroupCnt')); 
+        this.setBallGroupCnt();      
+
+        this.ballCnt = (this.ballGroupCnt + 1) * 10;
         this.initGame();
         this.shotReadyFunc();
         this.shotReadyFunc();
         this.shotReadyFunc();
+    },
+
+    setBallGroupCnt() {
+        this.ballGroupLabel.string = this.ballGroupCnt + "/9";        
+    },
+    addBallGroupEvent() {
+        if (this.ballGroupCnt > 8) {
+            return;
+        }
+        if (this.isAddBallFun) {
+            this.ballGroupCnt ++;
+            this.addBallGroupCnt ++;
+            
+            cc.sys.localStorage.setItem('ballGroupCnt', this.ballGroupCnt);
+            this.setBallGroupCnt();
+        } else {
+            this.dialogWnd.getComponent('dialogWnd').setContent(["10个球会进入宝箱邀请\n朋友一起开宝箱吧!"]);
+            this.isAddBallFun = true;
+        }
     }
 
 

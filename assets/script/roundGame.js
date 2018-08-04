@@ -491,7 +491,12 @@ cc.Class({
         var ls = cc.sys.localStorage;
         var data = ls.getItem("roundScore");
         if (!Array.isArray(data)) {
-            this.roundScore = data.split(",");
+            if (data != "") {
+                this.roundScore = data.split(",");
+            } else {
+                this.roundScore = [];
+            }
+            
         } else {
             this.roundScore = data;
         }
@@ -501,6 +506,7 @@ cc.Class({
     },
     setRoundScore() {
         var ls = cc.sys.localStorage;
+        console.log("setRound" + this.roundScore);
         ls.setItem("roundScore", this.roundScore);
 
         //. send total value
