@@ -80,7 +80,10 @@ cc.Class({
         this.roundScore;
 
         this.getRoundScore();
-
+        if (cc.sys.platform == cc.sys.ANDROID) {
+            var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
+            this.node.getChildByName('bound').scaleX = rr;
+        }
         //. ball object's array
         this.ballObj = [];
         this.delBoxPool = new cc.NodePool('delBox');

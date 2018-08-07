@@ -91,6 +91,10 @@ cc.Class({
         this.isAddBoxFun = false;
         this.isAddBallFun = true;
         this.addBallGroupCnt = 0;
+        if (cc.sys.platform == cc.sys.ANDROID) {
+            var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
+            this.node.getChildByName('bound').scaleX = rr;
+        }
 
      },
 

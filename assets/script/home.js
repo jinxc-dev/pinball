@@ -1,4 +1,3 @@
-
 cc.Class({
     extends: cc.Component,
 
@@ -62,6 +61,8 @@ cc.Class({
         
 
         this.rankViewLayout.node.active = false;
+
+        // this.loadResource();
     },
 
     start () {
@@ -129,7 +130,7 @@ cc.Class({
             // window.wx.showShareMenu({withShareTicket : true});
             // window.wx.getShareInfo({withShareTicket : true});
             if (window.wx != undefined) {
-                window.wx.shareAppMessage({title: 'test', imageUrl: 'https://wx1.sinaimg.cn/mw1024/59a47337ly1frj7nve36uj20kd0cqamo.jpg', query: "from=group"});
+                window.wx.shareAppMessage({title: 'PinBall', imageUrl: 'https://wx1.sinaimg.cn/mw1024/59a47337ly1frj7nve36uj20kd0cqamo.jpg', query: "from=group"});
             }
 
             // // this.rankViewLayout.node.getComponent("rankView").getLaunchOptionsSync();
@@ -143,8 +144,11 @@ cc.Class({
         var scene = cc.instantiate(this.mainGamePrefab);
         this.gameSceneLayout.node.active = true;
         this.gameSceneLayout.node.addChild(scene);
-        // this.node.pauseSystemEvents(true);
-        // scene.position = cc.v2(0, 0);
+        // scene.setScale(0.8, 1);
+        if (cc.sys.platform == cc.sys.ANDROID) {
+            var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
+            scene.scaleX = rr;
+        }
     },
     closeMainGame() {
         this.gameSceneLayout.node.removeAllChildren();
@@ -159,8 +163,13 @@ cc.Class({
         var scene = cc.instantiate(this.roundGamePrefab);
         this.gameSceneLayout.node.active = true;
         this.gameSceneLayout.node.addChild(scene);
+        if (cc.sys.platform == cc.sys.ANDROID) {
+            var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
+            scene.scaleX = rr;
+        }
         scene.position = cc.v2(0, 0);
         scene.getComponent('roundGame').init(n);
+
         // this.node.pauseSystemEvents(true);
     },
 
@@ -171,6 +180,11 @@ cc.Class({
             ls.setItem(key, value);
         }
     },
+
+    // loadResource() {        
+    //     var bg = cc.find('MainScene/back').getComponent(cc.Sprite);
+    //     bg.spriteFrame = new cc.SpriteFrame(tex);
+    // }
 
     // update (dt) {},
 });
