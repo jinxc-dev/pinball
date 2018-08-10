@@ -145,10 +145,10 @@ cc.Class({
         this.gameSceneLayout.node.active = true;
         this.gameSceneLayout.node.addChild(scene);
         // scene.setScale(0.8, 1);
-        if (cc.sys.platform == cc.sys.ANDROID) {
-            var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
-            scene.scaleX = rr;
-        }
+        // if (cc.sys.platform == cc.sys.ANDROID) {
+        //     var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
+        //     scene.scaleX = rr;
+        // }
     },
     closeMainGame() {
         this.gameSceneLayout.node.removeAllChildren();
@@ -163,10 +163,10 @@ cc.Class({
         var scene = cc.instantiate(this.roundGamePrefab);
         this.gameSceneLayout.node.active = true;
         this.gameSceneLayout.node.addChild(scene);
-        if (cc.sys.platform == cc.sys.ANDROID) {
-            var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
-            scene.scaleX = rr;
-        }
+        // if (cc.sys.platform == cc.sys.ANDROID) {
+        //     var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
+        //     scene.scaleX = rr;
+        // }
         scene.position = cc.v2(0, 0);
         scene.getComponent('roundGame').init(n);
 

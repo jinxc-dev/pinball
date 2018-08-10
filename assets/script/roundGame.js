@@ -1,4 +1,4 @@
-
+var commonH = require("commonHandler");
 cc.Class({
     extends: cc.Component,
 
@@ -80,11 +80,12 @@ cc.Class({
         this.roundScore;
 
         this.getRoundScore();
-        if (cc.sys.platform == cc.sys.ANDROID) {
-            var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
-            this.node.getChildByName('bound').scaleX = rr;
-        }
+        // if (cc.sys.platform == cc.sys.ANDROID) {
+        //     var rr = cc.sys.windowPixelResolution.width / cc.sys.windowPixelResolution.height / 0.5633;
+        //     this.node.getChildByName('bound').scaleX = rr;
+        // }
         //. ball object's array
+        this.scaleN = commonH.getScale();
         this.ballObj = [];
         this.delBoxPool = new cc.NodePool('delBox');
         this.initGame();
@@ -232,7 +233,7 @@ cc.Class({
     },
     //. ball shot information
     getShotPosInfo(pos) {
-        let len_x = pos.x - this.node.width / 2;
+        let len_x = pos.x - this.node.width / 2 * this.scaleN;
         let len_y = pos.y - this.initBallPos.y;
 
         // this.bar.node.setRotation(-20);
