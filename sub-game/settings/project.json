@@ -38,7 +38,6 @@
     "Graphics",
     "DragonBones",
     "Physics",
-    "StudioComponent",
     "Camera",
     "Intersection",
     "Native NetWork"
@@ -54,6 +53,5 @@
     "width": 960
   },
   "use-customize-simulator": false,
-  "use-project-simulator-setting": false,
-  "start-scene": "current"
+  "use-project-simulator-setting": false
 }
